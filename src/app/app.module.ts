@@ -13,6 +13,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { BarraLateralComponent } from './view/templates/barra-lateral/barra-lateral.component';
 import { PanelBienvenidaComponent } from './view/templates/panel-bienvenida/panel-bienvenida.component';
 
+import { FilterPipe } from './services/pipe.service';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,12 +28,16 @@ import { PanelBienvenidaComponent } from './view/templates/panel-bienvenida/pane
     DisciplinaFormComponent,
     BarraLateralComponent,
     PanelBienvenidaComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    FilterPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
