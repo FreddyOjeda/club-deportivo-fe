@@ -1,1 +1,2 @@
-<app-plantilla-basica></app-plantilla-basica>
+<app-plantilla-basica *ngIf="this.loaded"></app-plantilla-basica>
+<app-loader  *ngIf="!this.loaded"></app-loader>

@@ -15,6 +15,13 @@ import { PanelBienvenidaComponent } from './view/templates/panel-bienvenida/pane
 
 import { FilterPipe } from './services/pipe.service';
 import { FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoaderComponent } from './view/templates/loader/loader.component';
+import { NosotrosComponent } from './view/templates/nosotros/nosotros.component'; // Importa MatDialogModule
+
 
 @NgModule({
   declarations: [
@@ -28,12 +35,17 @@ import { FormsModule } from '@angular/forms';
     DisciplinaFormComponent,
     BarraLateralComponent,
     PanelBienvenidaComponent,
-    FilterPipe
+    FilterPipe,
+    LoaderComponent,
+    NosotrosComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NoopAnimationsModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     FilterPipe
