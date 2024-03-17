@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Miembro } from 'src/app/models/miembro.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { MiembrosFormComponent } from '../miembros-form/miembros-form.component';
 
 @Component({
   selector: 'app-miembros-base',
@@ -11,14 +13,16 @@ export class MiembrosBaseComponent {
   miembros: Miembro[] = [];
   terminoBusqueda: string = '';
 
-  constructor() {
+  constructor(
+    private dialog:MatDialog
+  ) {
     for (let i = 1; i <= 10; i++) {
       const miembro: Miembro = {
         id: i,
         nombre: `Nombre ${i}`,
         apellido: `Apellido ${i}`,
         documento: `Documento ${i}`,
-        nacimiento: new Date(),
+        nacimiento: new Date('1990-01-01'),
         telefono: `Teléfono ${i}`,
         correo: `correo${i}@example.com`,
         editar: () => this.editarMiembro(miembro),
@@ -28,9 +32,32 @@ export class MiembrosBaseComponent {
     }
   }
 
+  openDialog(){
+    const dialogRef = this.dialog.open(MiembrosFormComponent, {
+      width: '1000px',
+      data:{
+        nuevo:true,
+        body:null
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El diálogo se cerró');
+    });
+  }
+
   editarMiembro(miembro: Miembro): void {
-    console.log('Editar miembro:', miembro);
-    // Aquí va la lógica para editar el miembro
+    const dialogRef = this.dialog.open(MiembrosFormComponent, {
+      width: '1000px',
+      data: {
+        nuevo:false,
+        body:miembro
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El diálogo se cerró');
+    });
   }
 
   eliminarMiembro(miembro: Miembro): void {

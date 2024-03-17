@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Disciplina } from 'src/app/models/disciplina.interface';
 import { DisciplinaFormComponent } from '../disciplina-form/disciplina-form.component';
 import { ModalService } from 'src/app/services/modal.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-disciplina-base',
@@ -13,7 +14,8 @@ export class DisciplinaBaseComponent {
   terminoBusqueda: string = '';
 
   constructor(
-    private modal:ModalService
+    private modal:ModalService,
+    private dialog: MatDialog
   ) {
     for (let i = 1; i <= 10; i++) {
       const disciplina: Disciplina = {
@@ -27,21 +29,30 @@ export class DisciplinaBaseComponent {
     }
   }
   openDialog(){
-    
-    this.modal.createModal(DisciplinaFormComponent, this.disciplinas).subscribe((res: any) => {
-      console.log("Modal cerrado");
-      
-    })
+    const dialogRef = this.dialog.open(DisciplinaFormComponent, {
+      width: '1000px',
+      data:{
+        nuevo:true,
+        body:null
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El diálogo se cerró');
+    });
   }
 
   editarMiembro(disciplina: Disciplina): void {
-    console.log('Editar miembro:', disciplina);
-    
-    this.modal.createModal(DisciplinaFormComponent, {isCreate: false, formData: disciplina}).subscribe((res: any) => {
-      if (res) {
-        console.log("modal cerrado");
-        
+    const dialogRef = this.dialog.open(DisciplinaFormComponent, {
+      width: '1000px',
+      data: {
+        nuevo:false,
+        body:disciplina
       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El diálogo se cerró');
     });
   }
 

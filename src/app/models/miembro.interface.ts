@@ -6,6 +6,6 @@ export interface Miembro {
     nacimiento: Date;
     telefono: string;
     correo: string;
-    editar: () => void;
-    eliminar: () => void;
+    editar?: () => void;
+    eliminar?: () => void;
 }

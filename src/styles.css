@@ -22,18 +22,11 @@ html,body {
   color: #FFEBC6;
 }
 
-/* Estilo para el fondo oscuro detrás del modal */
-.default-modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.5); /* Color oscuro semi-transparente */
-  position: fixed; /* Se fija en la posición de la ventana */
-  top: 0;
-  left: 0;
-  width: 100%; /* Cubre toda la ventana */
-  height: 100%;
-}
+
 
 /* Estilo para el contenedor del modal */
 .default-modal-container {
+  backdrop-filter: none !important;
   position: fixed !important; /* Cambia la posición a fija */
   top: 50%;
   left: 50%;
@@ -45,7 +38,7 @@ html,body {
   border-radius: 5px; /* Bordes redondeados */
   padding: 20px; /* Espaciado interno */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
-  z-index: 1000; /* Superposición sobre otros elementos */
+  z-index: 1; /* Superposición sobre otros elementos */
   max-width: 90%; /* Ancho máximo */
   max-height: 90%; /* Altura máxima */
   overflow-y: auto; /* Barra de desplazamiento vertical si es necesario */

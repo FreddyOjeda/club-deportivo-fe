@@ -3,6 +3,6 @@ export interface Evento{
     nombre: string;
     descripcion: string;
     fecha: Date;
-    editar: () => void;
-    eliminar: () => void;
+    editar?: () => void;
+    eliminar?: () => void;
 }
