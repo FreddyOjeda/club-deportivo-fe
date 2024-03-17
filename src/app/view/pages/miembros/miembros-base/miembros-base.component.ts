@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Miembro } from 'src/app/models/miembro.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { MiembrosFormComponent } from '../miembros-form/miembros-form.component';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-miembros-base',
@@ -14,9 +15,10 @@ export class MiembrosBaseComponent {
   terminoBusqueda: string = '';
 
   constructor(
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private alert: AlertService
   ) {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 8; i++) {
       const miembro: Miembro = {
         id: i,
         nombre: `Nombre ${i}`,
@@ -60,8 +62,10 @@ export class MiembrosBaseComponent {
     });
   }
 
-  eliminarMiembro(miembro: Miembro): void {
-    console.log('Eliminar miembro:', miembro);
-    // Aquí va la lógica para eliminar el miembro
+  async eliminarMiembro(miembro: Miembro) {
+    const result = await this.alert.confirm(`¿Estás seguro que deseas eliminar a ${miembro.nombre} ?`, 'Eliminar')
+    if(result.isConfirmed){
+      
+    }
   }
 }

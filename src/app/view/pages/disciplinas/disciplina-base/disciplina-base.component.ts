@@ -3,6 +3,7 @@ import { Disciplina } from 'src/app/models/disciplina.interface';
 import { DisciplinaFormComponent } from '../disciplina-form/disciplina-form.component';
 import { ModalService } from 'src/app/services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-disciplina-base',
@@ -14,10 +15,10 @@ export class DisciplinaBaseComponent {
   terminoBusqueda: string = '';
 
   constructor(
-    private modal:ModalService,
+    private alert:AlertService,
     private dialog: MatDialog
   ) {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 8; i++) {
       const disciplina: Disciplina = {
         id: i,
         nombre: `Deporte ${i}`,
@@ -56,8 +57,10 @@ export class DisciplinaBaseComponent {
     });
   }
 
-  eliminarMiembro(evento: Disciplina): void {
-    console.log('Eliminar miembro:', evento);
-    // Aquí va la lógica para eliminar el miembro
+  async eliminarMiembro(disciplina: Disciplina) {
+    const result = await this.alert.confirm(`¿Estás seguro que deseas eliminar el deporte ${disciplina.nombre} ?`, 'Eliminar')
+    if(result.isConfirmed){
+      
+    }
   }
 }

@@ -12,7 +12,7 @@ const defaultClassConfigs = {
 const defaultCancelButtonConfigs = {
   showCancelButton: true,
   cancelButtonText: 'Cancelar',
-  confirmButtonColor: '#a7c957',
+  confirmButtonColor: '#8ac926',
   cancelButtonColor: '#c1121f',
 }
 
@@ -68,7 +68,7 @@ export class AlertService {
       ...defaultClassConfigs,
       icon: 'error',
       text: text,
-      confirmButtonColor: '#a7c957',
+      confirmButtonColor: '#8ac926',
       confirmButtonText: confirmButtonText,
     }
 

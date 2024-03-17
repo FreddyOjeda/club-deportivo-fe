@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Evento } from 'src/app/models/evento.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EventosFormComponent } from '../eventos-form/eventos-form.component';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-eventos-base',
@@ -13,9 +14,10 @@ export class EventosBaseComponent {
   terminoBusqueda: string = '';
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private alert: AlertService
   ) {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 8; i++) {
       const evento: Evento = {
         id: i,
         nombre: `Evento ${i}`,
@@ -56,8 +58,10 @@ export class EventosBaseComponent {
     });
   }
 
-  eliminarMiembro(evento: Evento): void {
-    console.log('Eliminar miembro:', evento);
-    // Aquí va la lógica para eliminar el miembro
+  async eliminarMiembro(evento: Evento){
+    const result = await this.alert.confirm(`¿Estás seguro que deseas eliminar la participacion en ${evento.nombre} ?`, 'Eliminar')
+    if(result.isConfirmed){
+      
+    }
   }
 }
