@@ -3,9 +3,7 @@ export interface Miembro {
     nombre: string;
     apellido: string;
     documento: string;
-    nacimiento: Date;
+    fecha_nacimiento: Date;
     telefono: string;
     correo: string;
-    editar?: () => void;
-    eliminar?: () => void;
 }

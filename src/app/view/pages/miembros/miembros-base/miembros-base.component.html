@@ -35,12 +35,16 @@
                 <td>{{ miembro.nombre }}</td>
                 <td>{{ miembro.apellido }}</td>
                 <td>{{ miembro.documento }}</td>
-                <td>{{ miembro.nacimiento | date:'dd/MM/yyyy'}}</td>
+                <td>{{ miembro.fecha_nacimiento | date:'dd/MM/yyyy'}}</td>
                 <td>{{ miembro.telefono }}</td>
                 <td>{{ miembro.correo }}</td>
                 <td class="d-flex justify-content-around">
-                    <button class="btn btn-warning" (click)="miembro.editar()"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
-                    <button class="btn btn-danger" (click)="miembro.eliminar()"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                    <button class="btn btn-warning" (click)="editarMiembro(miembro)">
+                        <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+                    </button>
+                    <button class="btn btn-danger" (click)="eliminarMiembro(miembro)">
+                        <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>

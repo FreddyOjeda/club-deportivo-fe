@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PlantillaBasicaComponent } from './view/templates/plantilla-basica/plantilla-basica.component';
@@ -46,6 +47,7 @@ import { NosotrosComponent } from './view/templates/nosotros/nosotros.component'
     NoopAnimationsModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     FilterPipe

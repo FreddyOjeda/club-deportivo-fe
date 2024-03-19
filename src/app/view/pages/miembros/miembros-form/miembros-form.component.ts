@@ -3,6 +3,9 @@ import { Miembro } from 'src/app/models/miembro.interface';
 import { AlertService } from 'src/app/services/alert.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { MiembroService } from 'src/app/services/backend/miembro.service';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-miembros-form',
@@ -19,14 +22,15 @@ export class MiembrosFormComponent {
     nombre: '',
     apellido: '',
     documento: '',
-    nacimiento: new Date(),
+    fecha_nacimiento: new Date(),
     telefono: '',
     correo: ''
   }
 
   constructor(
     private alert: AlertService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private miembroService: MiembroService
   ) {
     
     if (!data.nuevo) {
@@ -48,20 +52,33 @@ export class MiembrosFormComponent {
   cargarInfo(body: Miembro) {
     this.formData = {
       ...body,
-      nacimiento: new Date(body.nacimiento)
+      fecha_nacimiento: new Date(body.fecha_nacimiento)
     };
   }
 
   guardar(): void {
     if (this.validarDatos()) {
       // Aquí puedes manejar la lógica para guardar los datos del formulario
-      console.log('Datos del formulario:', this.formData);
+      if(this.data.nuevo){
+        this.miembroService.crearNuevo(this.formData).pipe(catchError((error) => {
+          return throwError(() => error)
+        })).subscribe((response) => {
+          window.location.reload()
+          
+        })
+      }else{
+        this.miembroService.editar(this.formData,this.formData.id).pipe(catchError((error) => {
+          return throwError(() => error)
+        })).subscribe((response) => {
+          window.location.reload()
+        })
+      }
     }
   }
 
   validarDatos(): boolean {
     // Validar nombre, apellido, documento, nacimiento y telefono como campos obligatorios
-    if (!this.formData.nombre || !this.formData.apellido || !this.formData.documento || !this.formData.nacimiento || !this.formData.telefono) {
+    if (!this.formData.nombre || !this.formData.apellido || !this.formData.documento || !this.formData.fecha_nacimiento || !this.formData.telefono) {
       this.alert.error('Nombre, apellido, documento, nacimiento y telefono son campos obligatorios.')
       return false;
     }
@@ -74,13 +91,13 @@ export class MiembrosFormComponent {
     }
 
     // Validar edad (18 años o más)
-    const fechaNacimiento = new Date(this.formData.nacimiento);
+    const fechaNacimiento = new Date(this.formData.fecha_nacimiento);
     const fechaActual = new Date();
     fechaActual.setFullYear(fechaActual.getFullYear() - 18);
-    if (fechaNacimiento > fechaActual) {
+    /* if (fechaNacimiento > fechaActual) {
       this.alert.error('El miembro debe ser mayor de 18 años.')
       return false;
-    }
+    } */
 
     return true;
   }
